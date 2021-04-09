@@ -1,0 +1,5 @@
+/hack/
+.vscode
+/__pycache__/
+/uploads/
+.env

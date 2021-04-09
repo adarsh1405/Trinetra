@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Setup Location</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <script src="/static/js/js-snackbar.min.js" async></script>
+    <link href="/static/css/js-snackbar.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #searchbox {
+            position: relative;
+            background: #fff;
+            border-radius: 8px;
+            box-sizing: border-box;
+            width: 392px;
+            height: 48px;
+            left: 20px;
+            border-bottom: 1px solid transparent;
+            padding: 12px 104px 11px 64px;
+            transition-property: background, box-shadow;
+            transition-duration: 0.3s;
+
+        }
+
+        #searchboxinput {
+            background-color: #fff;
+            color: inherit;
+            font-size: 15px;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100%;
+            height: 24px !important;
+            line-height: 24px;
+            vertical-align: top;
+            transition-property: color;
+            transition-duration: 0.3s;
+            font-family: "Lucida Console", "Courier New", monospace;
+            border: medium none;
+            background: transparent;
+            position: absolute;
+            z-index: 6;
+            left: 10px;
+            outline: currentcolor none medium;
+        }
+
+        .searchbox-shadow {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+        }
+
+        .searchbox-searchbutton-container {
+            position: absolute;
+            right: 0px;
+            top: 0;
+        }
+
+        #searchbox-searchbutton {
+
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            margin: 0;
+            outline: 0;
+            overflow: visible;
+            cursor: pointer;
+            display: block;
+            padding: 12px 15px;
+        }
+
+        /* svg {
+    outline: none;
+    transition: transform 0.15s linear;
+    pointer-events: none;
+}
+svg.icon {
+    pointer-events: none;
+} */
+    </style>
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+
+
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.1/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.1/mapbox-gl-draw.css"
+        type="text/css">
+    <br>
+    <div id="map"></div>
+    <!-- <div class="calculation-box">
+    <p>Draw a polygon using the draw tools.</p>
+    <div id="calculated-area"></div>
+</div> -->
+    <div id="searchbox" class="searchbox-shadow">
+        <input value="" autocomplete="off" id="searchboxinput" name="location" dir="ltr" spellcheck="false"
+            placeholder="Search Location">
+        <div class="searchbox-searchbutton-container">
+            <button id="searchbox-searchbutton" class="searchbox-searchbutton" onclick="searchPlace()">
+                <!-- <a id="" class="btn btn-default"  onclick="alert('1')"> -->
+                <!-- <i class="bi bi-search"></i> -->
+                <!-- <i class="small material-icons">search</i> -->
+                <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                        fill="#000000" />
+                </svg>
+            </button>
+            <!-- <svg width="26" height="26" viewBox="0 0 16 16" aria-hidden="true" tabindex="0" fill="none">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" fill="#000000"   onclick="alert('☕☕☕☕Coffee 4Dayz')"/>
+          </svg>  -->
+        </div>
+    </div>
+
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoicm9va2llNjkiLCJhIjoiY2ttbHFkZXVnMDhkaDJwbHd5bWI0NGR4biJ9.QL5xb-8vhursVfa3bsnWAA';
+        const map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/satellite-streets-v10', //hosted style id
+            // center: [85.8002307, 20.2498709 ], // starting position
+            center: [85.83353954630002, 19.798199628154435], // starting position
+            zoom: 17 // starting zoom
+        });
+
+        var draw = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+                polygon: true,
+                trash: true
+            }
+        });
+        function initializeMap(coordinates){
+            coords=[];
+            for(i=0;i<coordinates.length;i++)
+            {
+                coords.push([coordinates[i].lon,coordinates[i].lat]);
+            }
+            map.addSource('test', {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Polygon',
+                    'coordinates': [coords]
+                        }
+                }
+            });
+            map.addLayer({
+            'id': 'test',
+            'type': 'fill',
+            'source': 'test',
+            'layout': {},
+            'paint': {
+            'fill-color': '#a4dae6',
+            'fill-opacity': 0.3
+            }
+            });
+            moveTo(coordinates[0].lat,coordinates[1].lon,17);
+        }
+        map.on('load', function () {
+            fetch(`${window.origin}/admin/location`, {
+                    method: "GET",
+                    credentials: "same-origin",
+                })
+                .then(response => response.json())
+                .then((response) => {
+                    console.log(response);
+                    if (response.success) {
+                        SnackBar({
+                            message: "Loading "+response.place,
+                            status: "success"
+                        });
+                        initializeMap(response.location);
+                    }
+                    else {
+                        SnackBar({
+                            message: response.message,
+                            status: "danger"
+                        });
+                    };
+                });
+            });
+        map.addControl(draw);
+
+        map.on('draw.create', updateArea);
+        map.on('draw.delete', updateArea);
+        map.on('draw.update', updateArea);
+
+        function updateArea(e) {
+            var data = draw.getAll();
+            console.log(data);
+            if (data.features.length > 0) {
+                let area = data.features[0];
+                let coords = data.features[0].geometry.coordinates;
+                fetch(`${window.origin}/admin/map`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        "geoData": coords,
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "same-origin",
+                })
+                    .then(response => response.json())
+                    .then((response) => {
+                        console.log(response);
+                        if (response.success) {
+                            SnackBar({
+                                message: response.message,
+                                status: "success"
+                            });
+                        }
+                        else {
+                            SnackBar({
+                                message: response.message,
+                                status: "danger"
+                            });
+                        };
+                    });
+            } else {
+                SnackBar({
+                    message: "No Area Selected!!",
+                    status: "danger",
+                    timeout: 1000
+                });
+            }
+        }
+        function moveTo(lattitude, longitude, zoom) {
+            map.flyTo({ center: [longitude, lattitude], zoom: zoom, essential: true });
+        }
+        function searchPlace() {
+            let location = document.getElementById("searchboxinput").value;
+            if (location == "") {
+                SnackBar({
+                    message: "Search Box is Empty",
+                    status: "danger"
+                });
+            }
+            else {
+                SnackBar({
+                    message: "Searching...",
+                    status: "info",
+                    timeout: 1000
+                });
+            }
+
+            fetch(`${window.origin}/admin/map`, {
+                method: "POST",
+                body: JSON.stringify({
+                    "location": location,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "same-origin",
+            })
+                .then(response => response.json())
+                .then((response) => {
+                    moveTo(response.lat, response.lon, response.zoom);
+                });
+        }
+    </script>
+
+</body>
+
+</html>

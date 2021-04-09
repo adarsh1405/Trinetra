@@ -1,0 +1,11 @@
+gunicorn==19.9.0
+Flask==1.1.2
+Flask-Cors==3.0.10
+dnspython
+pymongo==3.11.3
+pymongo[srv]==3.11.3
+Flask-PyMongo==2.3.0
+Flask-RESTful==0.3.8
+PyJWT==1.4.2
+requests==2.25.1
+python-dotenv

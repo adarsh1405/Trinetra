@@ -2,7 +2,6 @@
 
 <img src="https://github.com/adarsh1405/Trinetra/blob/main/images/trinatra%20logo.jpeg" align="center">
 
-<a href="https://hack36.com"> <img src="http://bit.ly/BuiltAtHack36" height=20px> </a>
 
 [Trinetra App](https://github.com/adarsh1405/Trinetra/releases/download/v1.0/trinetra.apk)
 
@@ -55,7 +54,5 @@ Team Name: TechSpace
 
 * [Adarsh Padhi](https://github.com/adarsh1405)
 * [Gyanaranjan Sahoo](https://github.com/TheSpeedX)
-
-
-### Made at:
-<a href="https://hack36.com"> <img src="http://bit.ly/BuiltAtHack36" height=20px> </a>
+* [Ayush Kejariwal](https://github.com/KejariwalAyush)
+* [ASVK Vinayak](https://github.com/ASVKVINAYAK)

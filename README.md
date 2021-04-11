@@ -6,7 +6,7 @@
 
 [Trinetra App](https://github.com/adarsh1405/Trinetra/releases/download/v1.0/trinetra.apk)
 
-[Trinetra Admin Panel](https://trinetra-admin-panel.netlify.app)
+[Trinetra Admin Panel](https://www.iwd326.com)
 
 [Trinetra API](https://techspace-trinetra.herokuapp.com)
 
@@ -14,7 +14,7 @@
 An E-Biometric Attendance app which aims for a contacless , secure & accurate attendance which covers all the loopholes from the present *Biometric System* .
 
 [Video Demo](https://www.youtube.com/watch?v=EKbHADcnDXU): https://www.youtube.com/watch?v=EKbHADcnDXU  
-[Presentation](https://docs.google.com/presentation/d/1ymKfFeqjGNHqtzixWw0BrP_W1vr03ZP4cD3xsWuo2fY/edit#slide=id.gc791461a8b_2_136)
+[Presentation](https://docs.google.com/presentation/d/1ymKfFeqjGNHqtzixWw0BrP_W1vr03ZP4cD3xsWuo2fY/view) https://docs.google.com/presentation/d/1ymKfFeqjGNHqtzixWw0BrP_W1vr03ZP4cD3xsWuo2fY/view
 
 ## Screenshots
 
